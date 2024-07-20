@@ -28,7 +28,7 @@ class RMS(OWWidget):
         data = SignalInput("Data", Table)
 
     class Outputs:
-        data = SignalOutput("Processed Data", Table, default=True)
+        data = SignalOutput("Data", Table, default=True)
 
     class Warning(OWWidget.Warning):
         warning = Msg("Signal Processing Warning")
