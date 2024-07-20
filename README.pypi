@@ -1,0 +1,8 @@
+Signal Processing
+==================
+
+The package contains signal processing tools that can be applied to 1D time-series data. The package is designed to be integrated with Orange data mining tool.
+
+Features
+--------
+* Root Mean Square (RMS) Computation

@@ -1,0 +1,21 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <rect x="1" y="1" width="62" height="62" rx="6" ry="6" fill="#ececec" stroke="#333" stroke-width="2"/>
+  <path d="M10 50 Q15 30, 20 40 T30 50 T40 20 T50 40" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="10" cy="50" r="3" fill="#333"/>
+  <circle cx="20" cy="40" r="3" fill="#333"/>
+  <circle cx="30" cy="50" r="3" fill="#333"/>
+  <circle cx="40" cy="20" r="3" fill="#333"/>
+  <circle cx="50" cy="40" r="3" fill="#333"/>
+  <path d="M10 30 L54 30" fill="none" stroke="#FF0000" stroke-width="2" stroke-dasharray="4 2"/>
+  <text x="5" y="20" font-family="Arial" font-size="12" fill="#333">RMS</text>
+  <line x1="15" y1="30" x2="15" y2="40" stroke="#FF0000" stroke-width="2" marker-end="url(#arrow)" />
+  <line x1="25" y1="30" x2="25" y2="40" stroke="#FF0000" stroke-width="2" marker-end="url(#arrow)" />
+  <line x1="35" y1="30" x2="35" y2="50" stroke="#FF0000" stroke-width="2" marker-end="url(#arrow)" />
+  <line x1="45" y1="30" x2="45" y2="20" stroke="#FF0000" stroke-width="2" marker-end="url(#arrow)" />
+  <line x1="55" y1="30" x2="55" y2="40" stroke="#FF0000" stroke-width="2" marker-end="url(#arrow)" />
+  <defs>
+    <marker id="arrow" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,5 L5,2.5 z" fill="#FF0000"/>
+    </marker>
+  </defs>
+</svg>
