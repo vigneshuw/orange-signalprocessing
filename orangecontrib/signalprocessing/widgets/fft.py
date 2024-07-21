@@ -18,13 +18,15 @@ class FFT(OWWidget):
     description = "Compute Fast Fourier Transform (FFT) across each column"
     icon = "icons/fft.svg"
     priority = 100
-    keywords = ["widget", "data"]
+    keywords = ["widget", "fft"]
     want_main_area = True
+    want_control_area = True
 
     # Settings parameter
     start_segment_size = Setting(1)  # Start of FFT segment size in seconds
     end_segment_size = Setting(1)  # End of FFT segment size in seconds
     sampling_rate = Setting(1.0)    # Sampling rate in Hz
+    auto_send = Setting(False)  # Automatically send output when settings change
 
     class Inputs:
         data = SignalInput("Data", Table)
@@ -52,7 +54,8 @@ class FFT(OWWidget):
         # Start Segment Size Input
         self.start_segment_size_input = gui.lineEdit(
             self.controlArea, self, "start_segment_size",
-            label="Start Segment Size (s):", valueType=int, validator=self.start_segment_size_validator
+            label="Start Segment Size (s):", valueType=int, validator=self.start_segment_size_validator,
+            callback=self.settings_changed
         )
         self.start_segment_size_input.setText(str(self.start_segment_size))
         self.start_segment_size_input.setAlignment(Qt.AlignCenter)
@@ -61,7 +64,8 @@ class FFT(OWWidget):
         # End Segment Size Input
         self.end_segment_size_input = gui.lineEdit(
             self.controlArea, self, "end_segment_size",
-            label="End Segment Size (s):", valueType=int, validator=self.end_segment_size_validator
+            label="End Segment Size (s):", valueType=int, validator=self.end_segment_size_validator,
+            callback=self.settings_changed
         )
         self.end_segment_size_input.setText(str(self.end_segment_size))
         self.end_segment_size_input.setAlignment(Qt.AlignCenter)
@@ -70,14 +74,23 @@ class FFT(OWWidget):
         # Sampling Rate Input
         self.sampling_rate_input = gui.lineEdit(
             self.controlArea, self, "sampling_rate",
-            label="Sampling Rate (Hz):", valueType=float, validator=QDoubleValidator(0.1, 10e9, 2, self)
+            label="Sampling Rate (Hz):", valueType=float, validator=QDoubleValidator(0.1, 10e9, 2, self),
+            callback=self.settings_changed
         )
         self.sampling_rate_input.setText(str(self.sampling_rate))
         self.sampling_rate_input.setAlignment(Qt.AlignCenter)
         self.sampling_rate_input.setToolTip("Set the sampling rate in Hz. Max 1GHz.")
 
-        # Compute Button
-        self.compute_button = gui.button(self.controlArea, self, "Compute", callback=self.commit)
+        # Horizontal layout for checkbox and apply button
+        auto_send_layout = QHBoxLayout()
+        self.auto_send_checkbox = gui.checkBox(
+            None, self, "auto_send", label="", callback=self.settings_changed
+        )
+        self.apply_button = gui.button(None, self, "Apply", callback=self.commit)
+        auto_send_layout.addWidget(self.auto_send_checkbox)
+        auto_send_layout.addWidget(self.apply_button)
+        auto_send_layout.addStretch()
+        self.controlArea.layout().addLayout(auto_send_layout)
 
         # Main area layout
         main_area_layout = self.mainArea.layout()
@@ -90,8 +103,11 @@ class FFT(OWWidget):
         self.column_selector_layout.addStretch()
         main_area_layout.addLayout(self.column_selector_layout)
         # Plot area
-        self.figure, self.ax = plt.subplots()
+        self.figure, self.ax = plt.subplots(facecolor="none")
+        self.figure.patch.set_facecolor('none')
+        self.ax.set_facecolor('none')
         self.canvas = FigureCanvas(self.figure)
+        self.canvas.setStyleSheet("background-color: transparent;")
         self.canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         main_area_layout.addWidget(self.canvas)
 
@@ -103,7 +119,8 @@ class FFT(OWWidget):
             self.start_segment_size_validator.setTop(max_segment_size)
             self.end_segment_size_validator.setTop(max_segment_size)
             self.populate_column_selector()
-            self.update_plot()
+            if self.auto_send:
+                self.commit()
         else:
             self.data = None
             self.column_selector.clear()
@@ -142,8 +159,14 @@ class FFT(OWWidget):
             self.ax.set_xlabel("Frequency (Hz)")
             self.ax.set_ylabel("Amplitude")
             self.ax.set_title("FFT of Input Data")
-            self.ax.legend()
+            legend = self.ax.legend()
+            legend.get_frame().set_facecolor('none')
+            legend.get_frame().set_edgecolor('none')
             self.canvas.draw()
+
+    def settings_changed(self):
+        if self.auto_send:
+            self.commit()
 
     def commit(self):
         if self.data:
