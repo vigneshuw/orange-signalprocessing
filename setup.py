@@ -27,7 +27,8 @@ PACKAGE_DATA = {
 
 INSTALL_REQUIRES = [
     'Orange3',
-    'numpy'
+    'numpy',
+    'matplotlib',
 ]
 
 ENTRY_POINTS = {

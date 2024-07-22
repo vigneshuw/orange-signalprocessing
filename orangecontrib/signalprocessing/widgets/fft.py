@@ -158,7 +158,7 @@ class FFT(OWWidget):
                     self.ax.plot(freqs, self.fft_data[:, col_idx], label=f"{selected_column}")
             self.ax.set_xlabel("Frequency (Hz)")
             self.ax.set_ylabel("Amplitude")
-            self.ax.set_title("FFT of Input Data")
+            self.ax.set_title("FFT Spectrum")
             legend = self.ax.legend()
             legend.get_frame().set_facecolor('none')
             legend.get_frame().set_edgecolor('none')
