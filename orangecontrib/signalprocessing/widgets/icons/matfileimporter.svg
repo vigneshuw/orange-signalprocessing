@@ -1,0 +1,14 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Larger and detailed file symbol -->
+  <path d="M16 8 H40 L56 24 V56 H16 Z" fill="#fff" stroke="#333" stroke-width="2"/>
+  <!-- File top right corner fold -->
+  <path d="M40 8 V24 H56 Z" fill="#ececec" stroke="#333" stroke-width="2"/>
+  <!-- Larger downward arrow indicating import -->
+  <path d="M32 20 L32 45" stroke="#333" stroke-width="4" stroke-linecap="round"/>
+  <polygon points="24,38 32,46 40,38" fill="#333"/>
+  <!-- Folder icon to show download location -->
+  <path d="M18 48 H46 V56 H18 Z" fill="#ffcc00" stroke="#333" stroke-width="2"/>
+  <!-- Folder details -->
+  <line x1="18" y1="48" x2="46" y2="48" stroke="#333" stroke-width="2"/>
+  <line x1="22" y1="52" x2="42" y2="52" stroke="#333" stroke-width="2"/>
+</svg>

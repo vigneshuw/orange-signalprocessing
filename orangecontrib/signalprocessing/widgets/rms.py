@@ -15,7 +15,7 @@ class RMS(OWWidget):
     name = "Root Mean Square"
     description = "Compute Root Mean Square (RMS) across each column"
     icon = "icons/rms.svg"
-    priority = 100
+    priority = 1
     keywords = ["widget", "data"]
     want_main_menu = True
 

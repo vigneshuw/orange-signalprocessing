@@ -17,7 +17,7 @@ class FFT(OWWidget):
     name = "Fast Fourier Transform"
     description = "Compute Fast Fourier Transform (FFT) across each column"
     icon = "icons/fft.svg"
-    priority = 100
+    priority = 2
     keywords = ["widget", "fft"]
     want_main_area = True
     want_control_area = True

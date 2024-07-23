@@ -3,7 +3,7 @@ from Orange.widgets import gui
 from Orange.widgets.widget import OWWidget, Input, Output, Msg
 from Orange.widgets.utils.signals import Input as SignalInput
 from AnyQt.QtCore import Qt
-from AnyQt.QtWidgets import QLabel, QSizePolicy, QVBoxLayout, QHBoxLayout, QListWidget, QListWidgetItem
+from AnyQt.QtWidgets import QLabel, QSizePolicy, QVBoxLayout, QHBoxLayout, QListWidget, QListWidgetItem, QToolTip
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas, NavigationToolbar2QT as NavigationToolbar
@@ -14,7 +14,7 @@ class FFTPlotter(OWWidget):
     name = "FFT Plotter"
     description = "Plot FFT results from multiple FFT widgets"
     icon = "icons/fftplotter.svg"
-    priority = 100
+    priority = 3
     keywords = ["widget", "fft", "plot"]
     want_main_area = True
     want_control_area = True
@@ -61,6 +61,9 @@ class FFTPlotter(OWWidget):
         main_area_layout.addWidget(self.toolbar)
         main_area_layout.addWidget(self.canvas)
 
+        # Connect the click event
+        self.canvas.mpl_connect('button_press_event', self.on_click)
+
     @Inputs.data
     def set_data(self, data, id):
         if data is not None:
@@ -87,7 +90,8 @@ class FFTPlotter(OWWidget):
         common_ids = data_ids & rate_ids
         for idx, (id, data) in enumerate(self.data_list):
             if id in common_ids:
-                self.input_filter.addItem(QListWidgetItem(f"FFT Data {idx+1}"))
+                column_name = data.domain.attributes[0].name if data.domain.attributes[0].name else f"Data {idx + 1}"
+                self.input_filter.addItem(QListWidgetItem(column_name))
 
     def get_selected_data(self):
         selected_data = []
@@ -97,17 +101,18 @@ class FFTPlotter(OWWidget):
         common_ids = data_ids & rate_ids
 
         for idx, (id, data) in enumerate(self.data_list):
-            if f"FFT Data {idx+1}" in selected_items and id in common_ids:
+            column_name = data.domain.attributes[0].name if data.domain.attributes[0].name else f"Data {idx + 1}"
+            if column_name in selected_items and id in common_ids:
                 rate = next(rate for rate_id, rate in self.sampling_rate_list if rate_id == id)
-                selected_data.append((data, rate))
+                selected_data.append((data, rate, column_name))
         return selected_data
 
     def update_plot(self):
         self.ax.clear()
         selected_data = self.get_selected_data()
-        for idx, (data, rate) in enumerate(selected_data):
+        for idx, (data, rate, column_name) in enumerate(selected_data):
             freqs = np.fft.fftfreq(len(data.X) * 2, d=1.0 / rate)[:len(data.X)]
-            self.ax.plot(freqs, data.X[:, 0], label=f"FFT {idx+1}")
+            self.ax.plot(freqs, data.X[:, 0], label=column_name)
         self.ax.set_xlabel("Frequency (Hz)")
         self.ax.set_ylabel("Amplitude")
         self.ax.set_title("FFT Spectrum")
@@ -118,6 +123,11 @@ class FFTPlotter(OWWidget):
 
     def send_report(self):
         self.report_caption(f"Selected FFT Data: {[item.text() for item in self.input_filter.selectedItems()]}")
+
+    def on_click(self, event):
+        if event.inaxes is not None:
+            x, y = event.xdata, event.ydata
+            QToolTip.showText(event.guiEvent.globalPos(), f"x: {x:.2f}, y: {y:.2f}")
 
 
 if __name__ == "__main__":
