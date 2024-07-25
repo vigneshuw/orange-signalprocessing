@@ -20,8 +20,8 @@ class RMS(OWWidget):
     want_main_menu = True
 
     # Settings parameter
-    segment_size = Setting(1)   # RMS Segment size in seconds
-    sampling_rate = Setting(1.0)    # Samping rate in Hz
+    segment_size = Setting(1.0)   # RMS Segment size in seconds
+    sampling_rate = Setting(10.0)    # Samping rate in Hz
     overlap_rate = Setting(0)   # Overlap rate in percentage
 
     class Inputs:
@@ -43,14 +43,14 @@ class RMS(OWWidget):
         # Segment Size Input
         self.segment_size_input = gui.lineEdit(
             self.controlArea, self, "segment_size",
-            label="Segment Size (s):", valueType=int, validator=QIntValidator(1, 10000, self))
+            label="Segment Size (s):", valueType=float, validator=QDoubleValidator(0.0, 1000, 2, self))
         self.segment_size_input.setText(str(self.segment_size))
         self.segment_size_input.setAlignment(Qt.AlignCenter)
         self.segment_size_input.setToolTip("Set the window size in seconds.")
         # Sampling Rate Input
         self.sampling_rate_input = gui.lineEdit(
             self.controlArea, self, "sampling_rate",
-            label="Sampling Rate (Hz):", valueType=float, validator=QDoubleValidator(0.1, 10000.0, 2, self))
+            label="Sampling Rate (Hz):", valueType=float, validator=QDoubleValidator(0.0, 10e-9, 2, self))
         self.sampling_rate_input.setText(str(self.sampling_rate))
         self.sampling_rate_input.setAlignment(Qt.AlignCenter)
         self.sampling_rate_input.setToolTip("Set the sampling rate in Hz.")
@@ -104,11 +104,8 @@ class RMS(OWWidget):
     def commit(self):
         if self.data:
             try:
-                segment_size = int(self.segment_size_input.text())
-                sampling_rate = float(self.sampling_rate_input.text())
-                overlap_rate = int(self.overlap_rate_input.text())
-                window_size = int(segment_size * sampling_rate)
-                step_size = int(window_size * (1 - overlap_rate / 100))
+                window_size = int(self.segment_size * self.sampling_rate)
+                step_size = int(window_size * (1 - self.overlap_rate / 100))
                 if step_size < 1:
                     step_size = 1
                 # Compute RMS

@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas, NavigationToolbar2QT as NavigationToolbar
 
 
-class STFTPlotter(OWWidget):
+class STFT(OWWidget):
     # Set the widget configuration
     name = "STFT Plotter"
     description = "Compute and plot STFT for each column of the input data"
@@ -135,7 +135,7 @@ class STFTPlotter(OWWidget):
 
                         # Plot
                         self.ax.clear()
-                        self.ax.set_title(rf"STFT for {selected_column}; ({SFT.m_num * SFT.T:g}$\,s$ Gaussian window, " +
+                        self.ax.set_title(rf"STFT for {selected_column} ({SFT.m_num * SFT.T:g}$\,s$ Gaussian window, " +
                                       rf"$\sigma_t={round(g_std * SFT.T, 2)}\,$s)")
                         self.ax.set(xlabel=f"Time $t$ in seconds ({SFT.p_num(len(self.data))} slices, " +
                                            rf"$\Delta t = {SFT.delta_t:g}\,$s)",
@@ -161,4 +161,4 @@ class STFTPlotter(OWWidget):
 
 if __name__ == "__main__":
     from Orange.widgets.utils.widgetpreview import WidgetPreview
-    WidgetPreview(STFTPlotter).run()
+    WidgetPreview(STFT).run()
