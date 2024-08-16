@@ -54,7 +54,8 @@ class MATFileImporter(OWWidget):
         self.column_names_area = QVBoxLayout()
         self.controlArea.layout().addLayout(self.column_names_area)
 
-        self.update_button = QPushButton("Update Column Names")
+        self.update_button = QPushButton("Load Data")
+        self.update_button.setEnabled(False)
         self.update_button.clicked.connect(self.update_column_names)
         self.controlArea.layout().addWidget(self.update_button)
 
@@ -85,6 +86,11 @@ class MATFileImporter(OWWidget):
                 self.info_label.setText(
                     f"Info: Loaded {data.shape[0]} rows and {data.shape[1]} columns from {os.path.basename(file_path)}")
                 self.update_recent_files(file_path)
+
+                # Enable the load button
+                self.update_button.setEnabled(True)
+                self.update_button.setText("Load Data")
+
             else:
                 self.info_label.setText(f"Info: The file does not contain a valid 2D array.")
         except Exception as e:
@@ -126,6 +132,9 @@ class MATFileImporter(OWWidget):
             new_column_names.append(line_edit.text())
         self.column_names = new_column_names
         self.update_output_data()
+
+        # Once the data is loaded
+        self.update_button.setText("Reload")
 
     def update_output_data(self):
         if self.data is not None:

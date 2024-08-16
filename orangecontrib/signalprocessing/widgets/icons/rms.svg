@@ -1,21 +1,99 @@
-<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-  <rect x="1" y="1" width="62" height="62" rx="6" ry="6" fill="#ececec" stroke="#333" stroke-width="2"/>
-  <path d="M10 50 Q15 30, 20 40 T30 50 T40 20 T50 40" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="10" cy="50" r="3" fill="#333"/>
-  <circle cx="20" cy="40" r="3" fill="#333"/>
-  <circle cx="30" cy="50" r="3" fill="#333"/>
-  <circle cx="40" cy="20" r="3" fill="#333"/>
-  <circle cx="50" cy="40" r="3" fill="#333"/>
-  <path d="M10 30 L54 30" fill="none" stroke="#FF0000" stroke-width="2" stroke-dasharray="4 2"/>
-  <text x="5" y="20" font-family="Arial" font-size="12" fill="#333">RMS</text>
-  <line x1="15" y1="30" x2="15" y2="40" stroke="#FF0000" stroke-width="2" marker-end="url(#arrow)" />
-  <line x1="25" y1="30" x2="25" y2="40" stroke="#FF0000" stroke-width="2" marker-end="url(#arrow)" />
-  <line x1="35" y1="30" x2="35" y2="50" stroke="#FF0000" stroke-width="2" marker-end="url(#arrow)" />
-  <line x1="45" y1="30" x2="45" y2="20" stroke="#FF0000" stroke-width="2" marker-end="url(#arrow)" />
-  <line x1="55" y1="30" x2="55" y2="40" stroke="#FF0000" stroke-width="2" marker-end="url(#arrow)" />
-  <defs>
-    <marker id="arrow" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,5 L5,2.5 z" fill="#FF0000"/>
-    </marker>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="120"
+   height="120"
+   viewBox="0 0 120 120"
+   version="1.1"
+   id="svg1"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <linearGradient
+       id="linearGradient32">
+      <stop
+         style="stop-color:#800000;stop-opacity:1;"
+         offset="0"
+         id="stop32" />
+      <stop
+         style="stop-color:#800000;stop-opacity:0;"
+         offset="1"
+         id="stop33" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient24">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop24" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop25" />
+    </linearGradient>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath19">
+      <rect
+         style="opacity:0.99;fill:#000080;stroke:#000080;stroke-width:3.771"
+         id="rect19"
+         width="28.515095"
+         height="34.631889"
+         x="84.742455"
+         y="28.368109" />
+    </clipPath>
+    <linearGradient
+       xlink:href="#linearGradient24"
+       id="linearGradient25"
+       x1="68.707489"
+       y1="36.994137"
+       x2="70"
+       y2="55"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       xlink:href="#linearGradient32"
+       id="linearGradient33"
+       x1="68.706436"
+       y1="60"
+       x2="68.706436"
+       y2="36.988281"
+       gradientUnits="userSpaceOnUse" />
   </defs>
+  <g
+     id="layer1">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+       d="m 5,60 h 127.41525 v 0"
+       id="path1" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-dasharray:none"
+       d="m 5,10 v 95"
+       id="path2" />
+    <path
+       style="fill:none;stroke:#000080;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-dasharray:none"
+       d="m 5,60 c 20,-70 40.254237,0 40.254237,0"
+       id="path3" />
+    <path
+       style="fill:none;stroke:#000080;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-dasharray:none"
+       d="m 85.508472,60 c -20,70 -40.254235,0 -40.254235,0"
+       id="path3-0" />
+    <path
+       style="fill:none;stroke:#000080;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+       d="m 85.508472,60 c 19.999998,-70 40.254238,0 40.254238,0"
+       id="path3-2" />
+    <path
+       style="fill:url(#linearGradient25);stroke:#800000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:8.99998287, 3;stroke-dashoffset:0;stroke-opacity:1;fill-opacity:1"
+       d="M 4.9975975,36.988281 132.41738,36.999995"
+       id="path19" />
+    <rect
+       style="opacity:0.99;fill:url(#linearGradient33);stroke:none;stroke-width:3;stroke-dasharray:8.99998, 3;stroke-dashoffset:0;fill-opacity:1"
+       id="rect27"
+       width="127.41766"
+       height="23.011719"
+       x="4.9975977"
+       y="36.988281" />
+  </g>
 </svg>

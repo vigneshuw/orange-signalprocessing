@@ -14,9 +14,9 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 class STFT(OWWidget):
     # Set the widget configuration
-    name = "STFT Plotter"
+    name = "STFT"
     description = "Compute and plot STFT for each column of the input data"
-    icon = "icons/stftplotter.svg"
+    icon = "icons/stft.svg"
     priority = 3
     keywords = ["widget", "stft", "plot"]
     want_main_area = True
