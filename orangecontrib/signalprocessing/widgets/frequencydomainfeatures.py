@@ -1,6 +1,6 @@
 import numpy as np
-from scipy.stats import kurtosis, skew
-from scipy.integrate import simps
+from scipy.fft import fft
+from scipy.signal import welch
 from Orange.data import Table, Domain, ContinuousVariable
 from Orange.widgets import gui
 from Orange.widgets.settings import Setting
@@ -9,12 +9,12 @@ from AnyQt.QtCore import Qt
 from AnyQt.QtWidgets import QLabel, QVBoxLayout, QHBoxLayout, QListWidget, QListWidgetItem, QLineEdit, QSpacerItem, QSizePolicy
 
 
-class TimeDomainFeatures(OWWidget):
-    name = "Time Domain Features"
-    description = "Compute various time domain features from a time series signal"
-    icon = "icons/timedomainfeatures.svg"
-    priority = 5
-    keywords = ["time domain", "features", "signal processing"]
+class FrequencyDomainFeatures(OWWidget):
+    name = "Frequency Domain Features"
+    description = "Compute various frequency domain features from a time series signal"
+    icon = "icons/frequencydomainfeatures.svg"
+    priority = 6
+    keywords = ["frequency domain", "features", "signal processing"]
 
     class Inputs:
         time_series = Input("Time Series Data", Table)
@@ -37,23 +37,15 @@ class TimeDomainFeatures(OWWidget):
         self.selected_features = []
         self.feature_inputs = {}
         self.feature_descriptions = {
-            "RootMeanSquared": "Root Mean Squared: Measures the magnitude of a varying signal.",
-            "PeakValue": "Peak Value: The maximum absolute value of the signal.",
-            "Variance": "Variance: Measures the spread of the signal values.",
-            "CrestFactor": "Crest Factor: Ratio of the peak value to the RMS value.",
-            "Kurtosis": "Kurtosis: Measures the 'tailedness' of the probability distribution.",
-            "ClearanceFactor": "Clearance Factor: Ratio of the peak value to the mean of the absolute values of the signal.",
-            "ImpulseFactor": "Impulse Factor: Ratio of the peak value to the mean value of the absolute value of the signal.",
-            "LineIntegral": "Line Integral: The integral of the signal over time.",
-            "PeakToPeak": "Peak to Peak: The difference between the maximum and minimum values.",
-            "ShannonEntropy": "Shannon Entropy: Measures the uncertainty in the signal.",
-            "Skewness": "Skewness: Measures the asymmetry of the signal distribution."
+            "PeakValueFFT": "Peak Value of FFT: The maximum value of the FFT magnitude spectrum.",
+            "EnergyFFT": "Energy of FFT: The sum of the squared FFT magnitudes.",
+            "PowerSpectralDensity": "FFT Power Spectral Density: Estimate the power spectral density using Welch's method."
         }
 
         # Control area with settings
         self.controlArea = gui.widgetBox(self.controlArea, "Settings")
 
-        # Overlap rate input
+        # Sampling rate input
         self.sampling_rate_input = gui.lineEdit(
             self.controlArea, self, "sampling_rate", label="Sampling Rate (Hz):", valueType=float)
         self.sampling_rate_input.setAlignment(Qt.AlignCenter)
@@ -100,6 +92,7 @@ class TimeDomainFeatures(OWWidget):
 
         self.input_layout = QVBoxLayout()
         self.right_half.addLayout(self.input_layout)
+
         spacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
         self.right_half.addItem(spacer)
 
@@ -131,32 +124,20 @@ class TimeDomainFeatures(OWWidget):
             self.description_label.setText(self.feature_descriptions[feature])
 
             # Example: Add specific inputs based on the feature selected
-            if feature == "ShannonEntropy":
-                bins_label = QLabel("Number of Bins:")
-                bins_input = QLineEdit()
-                bins_input.setText("10")
-                bins_input.setAlignment(Qt.AlignCenter)
-                bins_input.setFixedWidth(100)
-                hboxLayout = QHBoxLayout()
-                hboxLayout.addWidget(bins_label)
-                hboxLayout.addWidget(bins_input)
-                hboxLayout.addStretch()
-                self.input_layout.addLayout(hboxLayout)
-                self.feature_inputs[feature] = bins_input
-            elif feature == "CrestFactor":
-                threshold_label = QLabel("Threshold:")
-                threshold_input = QLineEdit()
-                threshold_input.setText("0")
-                threshold_input.setAlignment(Qt.AlignCenter)
-                threshold_input.setFixedWidth(100)
+            if feature == "PowerSpectralDensity":
+                layout = QHBoxLayout()
+                nperseg_label = QLabel("Nperseg:")
+                nperseg_input = QLineEdit()
+                nperseg_input.setText("256")
+                nperseg_input.setAlignment(Qt.AlignCenter)
+                nperseg_input.setFixedWidth(100)  # Reduced width
 
-                hboxLayout = QHBoxLayout()
-                hboxLayout.addWidget(threshold_label)
-                hboxLayout.addWidget(threshold_input)
-                hboxLayout.addStretch()
+                layout.addWidget(nperseg_label)
+                layout.addWidget(nperseg_input)
+                layout.addStretch()
 
-                self.input_layout.addLayout(hboxLayout)
-                self.feature_inputs[feature] = threshold_input
+                self.input_layout.addLayout(layout)
+                self.feature_inputs[feature] = nperseg_input
             # Add other features and their specific inputs here
 
             self.current_feature = feature
@@ -171,29 +152,21 @@ class TimeDomainFeatures(OWWidget):
             self.current_feature = None
 
     def reset_features(self):
-        if len(self.selected_features) > 0:
-            # Clear the selected items
-            self.selected_features = []
-            # Re-enable all items in the feature list
-            for index in range(self.feature_list.count()):
-                item = self.feature_list.item(index)
-                item.setFlags(item.flags() | Qt.ItemIsEnabled)
+        # Clear the selected features
+        self.selected_features = []
 
-            # Clear the right half (input_layout and description)
-            self.description_label.setText("Select a feature to see its description and input options.")
-            for i in reversed(range(self.input_layout.count())):
-                item = self.input_layout.itemAt(i)
-                widget = item.widget()
-                if widget is not None:
-                    widget.setParent(None)
-                else:
-                    layout = item.layout()
-                    if layout is not None:
-                        for j in reversed(range(layout.count())):
-                            layout_item = layout.itemAt(j)
-                            layout_widget = layout_item.widget()
-                            if layout_widget is not None:
-                                layout_widget.setParent(None)
+        # Re-enable all items in the feature list
+        for index in range(self.feature_list.count()):
+            item = self.feature_list.item(index)
+            item.setFlags(item.flags() | Qt.ItemIsEnabled)
+
+        # Clear the right half (input_layout and description)
+        self.description_label.setText("Select a feature to see its description and input options.")
+        for i in reversed(range(self.input_layout.count())):
+            item = self.input_layout.itemAt(i)
+            widget = item.widget()
+            if widget is not None:
+                widget.setParent(None)
 
     def segment_signal(self, data, segment_size, overlap_rate, sampling_rate):
         segment_samples = int(segment_size * sampling_rate)
@@ -221,40 +194,19 @@ class TimeDomainFeatures(OWWidget):
             all_features = []
 
             for segment in segments:
+                fft_values = np.abs(fft(segment))[:len(segment) // 2]
                 segment_features = []
                 for feature in self.selected_features:
-                    if feature == "RootMeanSquared":
-                        segment_features.append(np.sqrt(np.mean(segment ** 2)))
-                    elif feature == "PeakValue":
-                        segment_features.append(np.max(np.abs(segment)))
-                    elif feature == "Variance":
-                        segment_features.append(np.var(segment))
-                    elif feature == "CrestFactor":
-                        rms = np.sqrt(np.mean(segment ** 2))
-                        crest_factor = np.max(np.abs(segment)) / rms
-                        segment_features.append(crest_factor)
-                    elif feature == "Kurtosis":
-                        segment_features.append(kurtosis(segment))
-                    elif feature == "ClearanceFactor":
-                        clearance_factor = np.max(np.abs(segment)) / np.mean(np.sqrt(np.abs(segment)))
-                        segment_features.append(clearance_factor)
-                    elif feature == "ImpulseFactor":
-                        impulse_factor = np.max(np.abs(segment)) / np.mean(np.abs(segment))
-                        segment_features.append(impulse_factor)
-                    elif feature == "LineIntegral":
-                        segment_features.append(simps(segment))
-                    elif feature == "PeakToPeak":
-                        segment_features.append(np.ptp(segment))
-                    elif feature == "ShannonEntropy":
-                        bins = int(self.feature_inputs["ShannonEntropy"].text())
-                        hist, _ = np.histogram(segment, bins=bins, density=True)
-                        shannon_entropy = -np.sum(hist * np.log2(hist + np.finfo(float).eps))
-                        segment_features.append(shannon_entropy)
-                    elif feature == "Skewness":
-                        segment_features.append(skew(segment))
+                    if feature == "PeakValueFFT":
+                        segment_features.append(np.max(fft_values))
+                    elif feature == "EnergyFFT":
+                        segment_features.append(np.sum(fft_values ** 2))
+                    elif feature == "PowerSpectralDensity":
+                        nperseg = int(self.feature_inputs["PowerSpectralDensity"].text())
+                        freqs, psd = welch(segment, fs=sampling_rate, nperseg=nperseg)
+                        segment_features.append(np.sum(psd))
                 all_features.append(segment_features)
 
-            self.description_label.setText("Time-domain features are computed!")
             # Create the output table
             domain = Domain([ContinuousVariable(f) for f in self.selected_features])
             new_data = Table(domain, np.array(all_features))
@@ -265,9 +217,9 @@ class TimeDomainFeatures(OWWidget):
         self.time_series = data
 
     def send_report(self):
-        self.report_caption("Time Domain Features Analysis")
+        self.report_caption("Frequency Domain Features Analysis")
 
 
 if __name__ == "__main__":
     from Orange.widgets.utils.widgetpreview import WidgetPreview
-    WidgetPreview(TimeDomainFeatures).run()
+    WidgetPreview(FrequencyDomainFeatures).run()

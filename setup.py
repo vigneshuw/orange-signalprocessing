@@ -29,6 +29,7 @@ INSTALL_REQUIRES = [
     'Orange3',
     'numpy',
     'matplotlib',
+    'PyWavelets'
 ]
 
 ENTRY_POINTS = {
