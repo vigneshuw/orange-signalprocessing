@@ -17,7 +17,7 @@ class STFT(OWWidget):
     name = "STFT"
     description = "Compute and plot STFT for each column of the input data"
     icon = "icons/stft.svg"
-    priority = 3
+    priority = 4
     keywords = ["widget", "stft", "plot"]
     want_main_area = True
     want_control_area = True

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="120"
+   height="120"
+   viewBox="0 0 120 120"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <linearGradient
+       id="swatch20">
+      <stop
+         style="stop-color:#800000;stop-opacity:1;"
+         offset="0"
+         id="stop20" />
+    </linearGradient>
+  </defs>
+  <g
+     id="layer1">
+    <g
+       id="g2">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+         d="m 7.5,7.5 v 110"
+         id="path1" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-dasharray:none"
+         d="m 5,115 h 109.66102 0.12712"
+         id="path2" />
+      <path
+         style="fill:none;stroke:#800000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-dasharray:none"
+         d="M 7.5,45.254237 C 7.5,45.254237 15.88983,35 36.483051,35 57.076271,35 62.288135,42.711864 77.923728,51.355932 93.559322,60 114.78814,45.508474 114.78814,45.508474"
+         id="path3" />
+      <path
+         style="fill:none;stroke:#000080;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-dasharray:none"
+         d="M 7.5,70.550847 C 40,75 46.652542,75 64.576271,62.5 82.5,50 115,60 115,60"
+         id="path4" />
+      <path
+         style="fill:none;stroke:#ffcc00;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+         d="M 7.500002,90.359684 C 40.000002,94.808837 52.076271,77.5 70,65 c 17.923729,-12.5 37.75424,40 37.75424,40"
+         id="path4-7" />
+      <path
+         style="fill:none;stroke:#008000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-dasharray:none"
+         d="M 7.1130213,54.609083 C 45,48.050847 52.033899,33.644068 70,26.822034 87.966101,20 115,53.262712 115,53.262712"
+         id="path5" />
+    </g>
+  </g>
+</svg>

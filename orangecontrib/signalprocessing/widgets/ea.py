@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas, NavigationToolbar2QT as NavigationToolbar
 from matplotlib.widgets import RectangleSelector
 
+
 class EnvelopAnalysis(OWWidget):
     name = "Envelope Analysis"
     description = "Perform envelope analysis on the FFT output of a time series signal"

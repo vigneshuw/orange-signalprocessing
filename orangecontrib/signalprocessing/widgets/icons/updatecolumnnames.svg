@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="120"
+   height="120"
+   viewBox="0 0 120 120"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <linearGradient
+       id="swatch20">
+      <stop
+         style="stop-color:#800000;stop-opacity:1;"
+         offset="0"
+         id="stop20" />
+    </linearGradient>
+  </defs>
+  <g
+     id="layer1">
+    <g
+       id="g2">
+      <rect
+         style="opacity:1;fill:none;stroke:#000000;stroke-width:1.90787"
+         id="rect1"
+         width="100.00738"
+         height="100.09212"
+         x="9.0386877"
+         y="8.953948" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 34.08475,9.0000111 V 109.00001"
+         id="path4" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 59.000004,9.0000111 59.08475,109.00001"
+         id="path5" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 83.915258,8.9995874 84.08475,109.00001"
+         id="path6" />
+      <rect
+         style="opacity:1;fill:#000000;stroke:#000000;stroke-width:1.06552"
+         id="rect6"
+         width="25.743254"
+         height="17.861797"
+         x="8.5714483"
+         y="8.4867086" />
+      <rect
+         style="fill:#000000;stroke:#000000;stroke-width:1.41027"
+         id="rect6-4"
+         width="48.420235"
+         height="16.635778"
+         x="59.205139"
+         y="9.5610685" />
+      <rect
+         style="opacity:1;fill:#808080;fill-opacity:1;stroke:#000000;stroke-width:1.93498"
+         id="rect7"
+         width="23.245373"
+         height="16.069635"
+         x="35.552242"
+         y="9.8441401" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 10,45 h 98.30508"
+         id="path7" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 10,65 98.30508,0.08474"
+         id="path8" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 10,85 98.30551,0.169491"
+         id="path9" />
+      <rect
+         style="opacity:1;fill:#c6c6c6;fill-opacity:0.118343;stroke:#800000;stroke-width:2"
+         id="rect22"
+         width="25"
+         height="1.6525424"
+         x="35"
+         y="5" />
+    </g>
+  </g>
+</svg>
