@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="120"
+   height="120"
+   viewBox="0 0 120 120"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <linearGradient
+       id="swatch20">
+      <stop
+         style="stop-color:#800000;stop-opacity:1;"
+         offset="0"
+         id="stop20" />
+    </linearGradient>
+  </defs>
+  <g
+     id="layer1">
+    <rect
+       style="fill:#000000;stroke:#000000;stroke-width:2;stroke-dasharray:none"
+       id="rect5"
+       width="5"
+       height="90.169495"
+       x="63.987675"
+       y="16.198303" />
+    <rect
+       style="fill:#000000;stroke:#000000;stroke-width:1.72906;stroke-dasharray:none"
+       id="rect6"
+       width="14.533318"
+       height="5.6522923"
+       x="64.60215"
+       y="57.173855" />
+    <g
+       id="g1"
+       transform="matrix(0.80283822,0,0,1.0062183,-10.084818,1.0740464)">
+      <rect
+         style="fill:#800000;stroke:#800000;stroke-width:2;stroke-dasharray:none"
+         id="rect7"
+         width="32.5"
+         height="2.4576271"
+         x="127.09746"
+         y="43.220341" />
+      <rect
+         style="fill:#800000;stroke:#800000;stroke-width:2;stroke-dasharray:none"
+         id="rect7-1"
+         width="32.5"
+         height="2.4576271"
+         x="127.09746"
+         y="50.995762" />
+      <rect
+         style="fill:#800000;stroke:#800000;stroke-width:2;stroke-dasharray:none"
+         id="rect7-6"
+         width="32.5"
+         height="2.4576271"
+         x="127.09746"
+         y="58.771187" />
+      <rect
+         style="fill:#800000;stroke:#800000;stroke-width:2;stroke-dasharray:none"
+         id="rect7-14"
+         width="32.5"
+         height="2.4576271"
+         x="127.09746"
+         y="66.042374" />
+      <rect
+         style="fill:#800000;stroke:#800000;stroke-width:2;stroke-dasharray:none"
+         id="rect7-8"
+         width="32.5"
+         height="2.4576271"
+         x="127.09746"
+         y="73.31356" />
+    </g>
+    <g
+       id="layer1-2"
+       transform="matrix(0,0.85957888,-0.68254703,0,74.111149,7.376632)">
+      <rect
+         style="opacity:0.99;fill:none;stroke:#000000;stroke-width:2.95566"
+         id="rect1"
+         width="104.72762"
+         height="97.318146"
+         x="10.272381"
+         y="7.6818533"
+         ry="7.1730185" />
+      <path
+         style="fill:#000080;stroke:#000080;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 15,104 c 0,0 -4.666041,3.02465 2.143249,-4.246168 6.8093,-7.270822 9.9768,-41.829493 11.8093,-35.000002 9.99999,37.26871 8.32527,-25.418532 12.63982,-30.46736 4.31455,-5.048828 9.66358,62.141772 17.00063,70.16427"
+         id="path1" />
+      <path
+         style="fill:#000080;stroke:#000080;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 110.48036,104 c 0,0 4.92194,3.02465 -1.88735,-4.24617 -6.80931,-7.27082 -9.976811,-41.82949 -11.809311,-35 -9.99999,37.26871 -8.32527,-25.41853 -12.63982,-30.46736 -4.31455,-5.04883 -9.66358,62.14177 -17.00063,70.16427"
+         id="path1-3" />
+      <path
+         style="fill:#000080;stroke:#000080;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 53.592999,94.45074 c 5.36896,5.178718 3.66063,-89.0659295 7.25609,-75.000001 3.59546,14.06593 4.56262,64.52902 7.74391,70.000001 3.18776,5.482111 2.1436,5 2.1436,5"
+         id="path2-4" />
+      <path
+         style="fill:#000080;stroke:#000080;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 54.592999,94.45074 4,10 h 9 l 3.1436,-10 z"
+         id="path3-8" />
+    </g>
+    <path
+       style="fill:#000000;stroke:#000000;stroke-width:1.19908px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 80.171488,67.462569 -2e-6,-14.97052 9.674941,7.540045 z"
+       id="path2" />
+  </g>
+</svg>

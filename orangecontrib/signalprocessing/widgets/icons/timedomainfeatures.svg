@@ -70,35 +70,39 @@
        id="rect7"
        width="32.5"
        height="2.4576271"
-       x="83.75"
-       y="52.177967" />
+       x="85.656776"
+       y="52.788658" />
     <rect
        style="fill:#800000;stroke:#800000;stroke-width:2;stroke-dasharray:none"
        id="rect7-1"
        width="32.5"
        height="2.4576271"
-       x="83.75"
-       y="59.953388" />
+       x="85.656776"
+       y="60.564079" />
     <rect
        style="fill:#800000;stroke:#800000;stroke-width:2;stroke-dasharray:none"
        id="rect7-6"
        width="32.5"
        height="2.4576271"
-       x="83.75"
-       y="67.728813" />
+       x="85.656776"
+       y="68.339508" />
     <rect
        style="fill:#800000;stroke:#800000;stroke-width:2;stroke-dasharray:none"
        id="rect7-14"
        width="32.5"
        height="2.4576271"
-       x="83.75"
-       y="75" />
+       x="85.656776"
+       y="75.610695" />
     <rect
        style="fill:#800000;stroke:#800000;stroke-width:2;stroke-dasharray:none"
        id="rect7-8"
        width="32.5"
        height="2.4576271"
-       x="83.75"
-       y="82.271187" />
+       x="85.656776"
+       y="82.881882" />
+    <path
+       style="fill:#000000;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 76,63 v 14 l 7,-7 z"
+       id="path1" />
   </g>
 </svg>
