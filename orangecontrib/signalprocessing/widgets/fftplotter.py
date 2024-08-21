@@ -26,6 +26,7 @@ class FFTPlotter(OWWidget):
     class Warning(OWWidget.Warning):
         missing_column = Msg("Each input must have exactly one column.")
         missing_sampling_rate = Msg("Missing or invalid sampling rate.")
+        invalid_data = Msg("Invalid data item")
 
     def __init__(self):
         super().__init__()
@@ -67,20 +68,31 @@ class FFTPlotter(OWWidget):
     @Inputs.data
     def set_data(self, data, id):
         if data is not None:
+            self.Warning.clear()
             if len(data.domain.attributes) == 1:
-                self.data_list.append((id[0], data))
+                self.data_list = [(i, d) if i != id[0] else (id[0], data) for i, d in self.data_list]
+                if not any(i == id[0] for i, d in self.data_list):
+                    self.data_list.append((id[0], data))
             else:
                 self.Warning.missing_column()
         else:
-            self.data_list = [d for d in self.data_list if d[0] != id]
+            self.data_list = [d for d in self.data_list if d[0] != id[0]]
+            self.Warning.invalid_data()
+
         self.update_input_filter()
 
     @Inputs.sampling_rate
     def set_sampling_rate(self, rate, id):
         if rate is not None and isinstance(rate, float):
-            self.sampling_rate_list.append((id[0], rate))
+            # Update the existing entry or append a new one
+            self.sampling_rate_list = [(i, r) if i != id[0] else (id[0], rate) for i, r in self.sampling_rate_list]
+            if not any(i == id[0] for i, r in self.sampling_rate_list):
+                self.sampling_rate_list.append((id[0], rate))
         else:
+            # Remove the entry corresponding to the given id when the input is None
+            self.sampling_rate_list = [r for r in self.sampling_rate_list if r[0] != id[0]]
             self.Warning.missing_sampling_rate()
+
         self.update_input_filter()
 
     def update_input_filter(self):
@@ -108,18 +120,20 @@ class FFTPlotter(OWWidget):
         return selected_data
 
     def update_plot(self):
-        self.ax.clear()
-        selected_data = self.get_selected_data()
-        for idx, (data, rate, column_name) in enumerate(selected_data):
-            freqs = np.fft.fftfreq(len(data.X) * 2, d=1.0 / rate)[:len(data.X)]
-            self.ax.plot(freqs, data.X[:, 0], label=column_name)
-        self.ax.set_xlabel("Frequency (Hz)")
-        self.ax.set_ylabel("Amplitude")
-        self.ax.set_title("FFT Spectrum")
-        legend = self.ax.legend()
-        legend.get_frame().set_facecolor('none')
-        legend.get_frame().set_edgecolor('none')
-        self.canvas.draw()
+        if len(self.data_list) > 0 and len(self.get_selected_data()) > 0:
+            self.ax.clear()
+            self.Warning.clear()
+            selected_data = self.get_selected_data()
+            for idx, (data, rate, column_name) in enumerate(selected_data):
+                freqs = np.fft.fftfreq(len(data.X) * 2, d=1.0 / rate)[:len(data.X)]
+                self.ax.plot(freqs, data.X[:, 0], label=column_name)
+            self.ax.set_xlabel("Frequency (Hz)")
+            self.ax.set_ylabel("Amplitude")
+            self.ax.set_title("FFT Spectrum")
+            legend = self.ax.legend()
+            legend.get_frame().set_facecolor('none')
+            legend.get_frame().set_edgecolor('none')
+            self.canvas.draw()
 
     def send_report(self):
         self.report_caption(f"Selected FFT Data: {[item.text() for item in self.input_filter.selectedItems()]}")

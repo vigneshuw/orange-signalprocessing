@@ -9,7 +9,8 @@ from AnyQt.QtCore import Qt
 from AnyQt.QtWidgets import QLabel, QSizePolicy, QComboBox, QVBoxLayout, QHBoxLayout
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backend_bases import NavigationToolbar2
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas, NavigationToolbar2QT as NavigationToolbar
 
 
 class FFT(OWWidget):
@@ -109,7 +110,11 @@ class FFT(OWWidget):
         self.canvas = FigureCanvas(self.figure)
         self.canvas.setStyleSheet("background-color: transparent;")
         self.canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        # Add navigation toolbar
+        self.toolbar = NavigationToolbar(self.canvas, self)
+        main_area_layout.addWidget(self.toolbar)
         main_area_layout.addWidget(self.canvas)
+
 
     @Inputs.data
     def set_data(self, data):
@@ -169,6 +174,7 @@ class FFT(OWWidget):
             self.commit()
 
     def commit(self):
+        self.Warning.clear()
         if self.data:
             try:
                 start_segment_size = int(self.start_segment_size_input.text())
