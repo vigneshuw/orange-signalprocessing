@@ -1,12 +1,15 @@
 import numpy as np
-from scipy.signal import butter, filtfilt
+from PyQt5.QtWidgets import QCheckBox
+from scipy.signal import butter, filtfilt, freqz
 from Orange.data import Table, Domain
 from Orange.widgets import gui
 from Orange.widgets.settings import Setting
 from Orange.widgets.widget import OWWidget, Input, Output, Msg
 from AnyQt.QtCore import Qt
 from AnyQt.QtGui import QDoubleValidator, QIntValidator
-from AnyQt.QtWidgets import QLabel, QVBoxLayout, QHBoxLayout, QComboBox, QLineEdit
+from AnyQt.QtWidgets import QLabel, QVBoxLayout, QHBoxLayout, QComboBox, QSizePolicy
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 
 class Butterworth(OWWidget):
@@ -29,6 +32,7 @@ class Butterworth(OWWidget):
     high_cutoff = Setting(10.0)
     order = Setting(4)
     sampling_rate = Setting(1.0)
+    auto_send = Setting(False)      # Automatically send output when settings change
 
     # Warnings
     class Warning(OWWidget.Warning):
@@ -84,17 +88,49 @@ class Butterworth(OWWidget):
 
         # Apply filter button - placed in a fixed position
         apply_button_layout = QVBoxLayout()
-        apply_button_layout.setAlignment(Qt.AlignBottom)
+        auto_send_layout = QHBoxLayout()
+        self.auto_send_checkbox = gui.checkBox(
+            None, self, "auto_send", label="", callback=self.settings_changed
+        )
         self.apply_button = gui.button(None, self, "Apply Filter", callback=self.apply_filter)
-        apply_button_layout.addWidget(self.apply_button)
+        auto_send_layout.addWidget(self.auto_send_checkbox)
+        auto_send_layout.addWidget(self.apply_button)
+        auto_send_layout.setAlignment(Qt.AlignLeft)
+        apply_button_layout.addLayout(auto_send_layout)
+        apply_button_layout.setAlignment(Qt.AlignBottom)
         self.controlArea.layout().addLayout(apply_button_layout)
 
         # Right half: Placeholder for plot or additional info (if needed in the future)
         self.right_half = QVBoxLayout()
         self.mainArea.layout().addLayout(self.right_half)
 
+        # Matplotlib figure for plotting the filter response
+        self.figure, self.ax = plt.subplots(facecolor="none")
+        self.figure.patch.set_facecolor("none")
+        self.ax.set_facecolor("none")
+        self.canvas = FigureCanvas(self.figure)
+        self.canvas.setStyleSheet("background-color: transparent;")
+        self.canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.right_half.addWidget(self.canvas)
+
         # Initial update of filter inputs
         self.update_filter_inputs()
+
+    def plot_filter_response(self, b, a, nyquist):
+        """Plot the frequency response of the current filter configuration."""
+
+        # Calculate the frequency response
+        w, h = freqz(b, a, worN=8000)
+        freqs = nyquist * w / np.pi
+
+        # Plot the response
+        self.ax.clear()
+        self.ax.plot(freqs, np.abs(h), 'b')
+        self.ax.set_title("Filter Frequency Response")
+        self.ax.set_xlabel('Frequency (Hz)')
+        self.ax.set_ylabel('Gain')
+        self.ax.grid(True)
+        self.canvas.draw()
 
     def create_left_aligned_input(self, attribute_name, label_text, validator):
         layout = QHBoxLayout()
@@ -133,6 +169,10 @@ class Butterworth(OWWidget):
             self.high_cutoff_layout.itemAt(0).widget().show()
             self.high_cutoff_layout.itemAt(1).widget().show()
 
+    def settings_changed(self):
+        if self.auto_send:
+            self.apply_filter()
+
     def apply_filter(self):
         if self.time_series:
             error_check_fail = False
@@ -145,8 +185,6 @@ class Butterworth(OWWidget):
                 sampling_rate = self.sampling_rate
                 nyquist = 0.5 * sampling_rate
                 order = self.order
-
-                print(order)
 
                 if filter_type == "Low-pass":
                     cutoff = self.cutoff
@@ -190,13 +228,20 @@ class Butterworth(OWWidget):
                 filtered_signal = filtfilt(b, a, data_col)
                 new_data = Table.from_numpy(Domain(self.time_series.domain.attributes), filtered_signal[:, np.newaxis])
 
+                # Create plots
+                self.plot_filter_response(b, a, nyquist)
+
                 self.Outputs.filtered_data.send(new_data)
             except ValueError:
                 self.Warning.warning_invalid_params()
 
     @Inputs.time_series
     def set_data(self, data):
-        self.time_series = data
+        if data:
+            self.time_series = data
+            if self.auto_send:
+                self.apply_filter()
+
 
     def send_report(self):
         self.report_caption(f"Butterworth Filter: {self.filter_type_combo.currentText()} with Order: {self.order_input.text()}")
