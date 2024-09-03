@@ -1,8 +1,20 @@
 Signal Processing
 ==================
 
-The package contains signal processing tools that can be applied to 1D time-series data. The package is designed to be integrated with Orange data mining tool.
+Orange add-on for Signal Processing. It provides access to some of the commonly used signal processing techniques.
+It involves time series analysis, frequency domain analysis, and time-frequency domain analysis.
 
 Features
 --------
-* Root Mean Square (RMS) Computation
+* .mat file importer
+* Update column names for plotting
+* Root Mean Square (RMS) computation
+* Fast Fourier Transform (FFT)
+* Envelop analysis
+* Plotting multiple FFTs together
+* Plotting time-series plots together
+* Short Time Fourier Transform (STFT) computation and plotting
+* Time domain feature extraction
+* Frequency domain feature extraction
+* Time-Frequency domain feature extraction
+* Butterworth filter - LP, HP, and BP
