@@ -39,7 +39,7 @@ Navigate to the inside the repository.
 Then Run
 
 ```shell
-pip install -e .
+pip install .
 ```
 
 ## Usage
