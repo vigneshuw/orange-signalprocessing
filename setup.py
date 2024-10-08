@@ -27,9 +27,10 @@ PACKAGE_DATA = {
 
 INSTALL_REQUIRES = [
     'Orange3',
-    'numpy',
-    'matplotlib',
-    'PyWavelets'
+    'numpy==1.26.4',
+    'matplotlib==3.9.1',
+    'PyWavelets==1.7.0',
+    'scipy==1.13.1',
 ]
 
 ENTRY_POINTS = {
