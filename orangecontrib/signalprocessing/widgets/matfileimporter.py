@@ -7,7 +7,6 @@ from Orange.widgets.settings import Setting
 from Orange.widgets.widget import OWWidget, Input, Output, Msg
 from AnyQt.QtWidgets import QFileDialog, QLabel, QListWidget, QListWidgetItem, QVBoxLayout, QHBoxLayout, QLineEdit, \
     QPushButton
-from AnyQt.QtCore import Qt
 
 
 class MATFileImporter(OWWidget):

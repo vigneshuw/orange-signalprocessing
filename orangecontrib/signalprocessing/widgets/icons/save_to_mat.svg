@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="59.533588"
+   height="62.004078"
+   viewBox="0 0 59.533588 62.004078"
+   version="1.1"
+   id="svg5"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs5" />
+  <path
+     d="M 1.3099,1.3099 H 35.45817 L 58.22369,21.104659 V 60.694178 H 1.3099 Z"
+     fill="#ffffff"
+     stroke="#333333"
+     stroke-width="2.6198"
+     id="path1" />
+  <rect
+     style="fill:#ffffff;stroke:#000000;stroke-width:1;stroke-dasharray:none"
+     id="rect5"
+     width="35.737942"
+     height="31.151043"
+     x="5.2876525"
+     y="26.254988" />
+  <!-- Larger and detailed file symbol -->
+  <!-- File top right corner fold -->
+  <!-- Larger downward arrow indicating import -->
+  <path
+     d="M 22.343066,29.52075 V 42.597898"
+     stroke="#333333"
+     stroke-width="2.89299"
+     stroke-linecap="round"
+     id="path3" />
+  <polygon
+     points="32,46 40,38 24,38 "
+     fill="#333333"
+     id="polygon3"
+     transform="translate(-9.6569339,-0.84745656)" />
+  <!-- Folder icon to show download location -->
+  <path
+     d="M 9.1566245,46.14407 H 37.156625 v 8 H 9.1566245 Z"
+     fill="#ffcc00"
+     stroke="#333333"
+     stroke-width="2"
+     id="path4" />
+  <!-- Folder details -->
+  <line
+     x1="13.156624"
+     y1="50.14407"
+     x2="33.15662"
+     y2="50.14407"
+     stroke="#333333"
+     stroke-width="2"
+     id="line5" />
+  <rect
+     style="fill:#ffffff;stroke:#000000"
+     id="rect6"
+     width="27.437519"
+     height="17.898306"
+     x="5.2191033"
+     y="2.9830518" />
+  <rect
+     style="fill:#ffffff;stroke:#000000;stroke-width:1;stroke-dasharray:none"
+     id="rect6-7"
+     width="5.8776565"
+     height="8.5196581"
+     x="22.502728"
+     y="7.9478011" />
+</svg>
